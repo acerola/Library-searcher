@@ -16,19 +16,31 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
+        <ImageButton
+            android:onClick="toSearchActivity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
+            android:background="@drawable/menu1"
+            android:layout_height="100dp" />
+        
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="20dp" />
 
-        <Button
-            android:id="@+id/credit"
+        <ImageButton
+            android:onClick="toBookMarkActivity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/menu2"
+            android:layout_height="100dp" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <ImageButton
+            android:onClick="toCreditActivity"
+            android:layout_width="match_parent"
+            android:background="@drawable/menu3"
+            android:layout_height="100dp" />
 
     </LinearLayout>
 

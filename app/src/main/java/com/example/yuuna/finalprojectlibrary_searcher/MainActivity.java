@@ -1,10 +1,9 @@
 package com.example.yuuna.finalprojectlibrary_searcher;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Handler;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,4 +15,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    public void toCreditActivity(View v)
+    {
+        Intent i = new Intent(this, creditActivity.class);
+        startActivity(i);
+    }
+
+    public void toSearchActivity(View v)
+    {
+        Intent i = new Intent(this, searchActivity.class);
+        startActivity(i);
+    }
+
+    public void toBookMarkActivity(View V)
+    {
+        Intent i = new Intent(this, bookmarkActivity.class);
+        startActivity(i);
+    }
+
 }

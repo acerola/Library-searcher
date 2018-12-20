@@ -16,6 +16,12 @@
     </style>
 
 
+    <style name="AppTheme.main" parent="ThemeOverlay.AppCompat.Light">
+
+
+    </style>
+
+
 
 
 </resources>

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FinalProject/Library-searcher</string>
+
+    <!-- fragment_detialed text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_all">전체</string>
+    <string name="writer">저자명</string>
+    <string name="bookName">서명</string>
+    <string name="detailedSearch">상세검색</string>
+    <string name="publishYear">발행년도</string>
+    <string name="isThereOriginal">원문유무</string>
+    <string name="search_button">검색</string>
+
+
 </resources>

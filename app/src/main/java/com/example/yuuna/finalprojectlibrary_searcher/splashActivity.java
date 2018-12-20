@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class splashActivity extends AppCompatActivity {
 
-    private static final int SPLASH_DELAY = 3000;
+    private static final int SPLASH_DELAY = 2000;
 
     private final Handler mHandler   = new Handler();
     private final Launcher mLauncher = new Launcher();
