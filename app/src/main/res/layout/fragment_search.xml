@@ -13,12 +13,15 @@
         android:layout_height="wrap_content">
         <TextView
             android:text="@string/search_all"
-            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_weight="8"
+            android:id="@+id/search_all"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -26,26 +29,33 @@
         android:layout_height="wrap_content">
         <TextView
             android:text="@string/bookName"
-            android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_weight="3"
+            android:id="@+id/search_book_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
-
         <TextView
             android:text="@string/writer"
-            android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <EditText
-            android:layout_width="wrap_content"
+            android:id="@+id/search_writer"
+            android:layout_weight="3"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <TextView
+    <Button
+        android:id="@+id/search_detail_button"
         android:text="@string/detailedSearch"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content" />
 
     <LinearLayout
@@ -53,17 +63,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+
+            android:text="@string/dataType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/search_dataType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/basic2" />
+        <TextView
             android:text="@string/publishYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <EditText
+        <TextView
+            android:layout_weight="1"
+            android:text="@string/basic"
+            android:id="@+id/search_start_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:text="~"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <EditText
+        <TextView
+            android:layout_weight="1"
+            android:text="@string/basic"
+            android:id="@+id/search_end_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -72,13 +101,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <CheckBox
+        <TextView
+            android:layout_weight="0.5"
+            android:id="@+id/search_isThere"
+            android:text="@string/basic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/search_button"
         android:text="@string/search_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

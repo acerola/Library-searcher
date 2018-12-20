@@ -6,10 +6,14 @@
     <string name="search_all">전체</string>
     <string name="writer">저자명</string>
     <string name="bookName">서명</string>
-    <string name="detailedSearch">상세검색</string>
+    <string name="detailedSearch">상세검색설정하기</string>
     <string name="publishYear">발행년도</string>
     <string name="isThereOriginal">원문유무</string>
     <string name="search_button">검색</string>
+    <string name="dataType">자료종류</string>
+    <string name="basic"></string>
+    <string name="basic2">전체</string>
+
 
 
 </resources>

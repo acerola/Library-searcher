@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dbtype">
+        <item>전체</item>
+        <item>일반도서</item>
+        <item>고서</item>
+        <item>세미나자료</item>
+        <item>멀티미디어자료</item>
+        <item>마이크로폼자료</item>
+        <item>지도/기타자료</item>
+        <item>오디오북</item>
+        <item>학위논문</item>
+        <item>국내학술기사</item>
+        <item>국외학술기사</item>
+        <item>해외소재한국관련자료</item>
+        <item>학술지</item>
+        <item>신문</item>
+        <item>인터넷자료</item>
+    </string-array>
+</resources>
