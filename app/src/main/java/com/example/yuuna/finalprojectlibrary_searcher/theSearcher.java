@@ -11,13 +11,12 @@ public class theSearcher extends AsyncTask<Integer,Integer,ArrayList<HashMap<Str
     private int searchNum;
     public ArrayList<HashMap<String,String>> searchResult;
 
-    public theSearcher(dataClass.searchData data, int pagenum , int num , ArrayList<HashMap<String,String>> result )
+    public theSearcher(dataClass.searchData data, int pagenum , int num )
     {
         super();
         sData = data;
         searchPagenum = pagenum;
         searchNum = num;
-        searchResult = result;
     }
 
 
@@ -25,18 +24,19 @@ public class theSearcher extends AsyncTask<Integer,Integer,ArrayList<HashMap<Str
         XmlParser xml = new XmlParser();
         if(searchType[0] == 0)
         {
-            searchResult = xml.basicSearch(sData.getSearchAll(),sData.getBookName(),sData.getWriter(),searchPagenum,searchNum);
+            searchFragment.Lastresult = xml.basicSearch(sData.getSearchAll(),sData.getBookName(),sData.getWriter(),searchPagenum,searchNum);
         }
         else
         {
-            searchResult = xml.basicSearch(sData.getSearchAll(),sData.getBookName(),sData.getWriter(),searchPagenum,searchNum);
+            searchFragment.Lastresult = xml.basicSearch(sData.getSearchAll(),sData.getBookName(),sData.getWriter(),searchPagenum,searchNum);
         }
-        return searchResult;
+        return searchFragment.Lastresult;
     }
 
     @Override
     protected void onPostExecute(ArrayList<HashMap<String,String>> result)
     {
         searchResult = result;
+        searchFragment.isDone = true;
     }
 }

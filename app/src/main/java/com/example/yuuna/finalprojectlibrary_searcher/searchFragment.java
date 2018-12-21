@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class searchFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
+    final static String ARG_POSITION = "position";
     private static final int dataNum = 10;
+    public static ArrayList<HashMap<String,String>> Lastresult;
+
+    public static boolean isDone = false;
+
+    SearchListener mCallback;
 
     private String searchAll;
     private String writer;
@@ -34,32 +38,47 @@ public class searchFragment extends Fragment {
     private int endYear;
     private int isThereOriginal;
 
+    public CustomAdapter adapter;
 
     private View mainFragment;
+    ListView listView;
 
     private Button searchButton;
     private Button detailSearchButton;
 
     private SearchListener mListener;
 
-    private ArrayList<HashMap<String,String>> result;
+    Handler handler;
+    Thread thread;
+
 
     public searchFragment() {
         // Required empty public constructor
     }
 
-    public interface SearchListener {
-        public void onWordSelected(int position);
+    public void createList()
+    {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter= new CustomAdapter(Lastresult,getActivity().getApplicationContext());
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        mCallback.onSelectedItem(position);
+                    }
+                });
+
+            }
+        });
     }
 
-    public static searchFragment newInstance(String param1, String param2) {
-        searchFragment fragment = new searchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public interface SearchListener {
+        void onSelectedItem(int position);
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,9 +87,27 @@ public class searchFragment extends Fragment {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        handler = new Handler();
+        thread = new Thread(new checker());
+        thread.setDaemon(true);
+        thread.start();
 
+    }
 
+    class checker implements Runnable {
+        public void run(){
+            int flag = 1;
+            while(flag == 1)
+            {
+                if(isDone)
+                {
+                    createList();
+                    isDone = false;
+                    flag = 2;
+                }
 
+            }
+        }
     }
 
     @Override
@@ -80,13 +117,13 @@ public class searchFragment extends Fragment {
         mainFragment =  inflater.inflate(R.layout.fragment_search, container, false);
         searchButton = (Button)mainFragment.findViewById(R.id.search_button);
         detailSearchButton = (Button)mainFragment.findViewById(R.id.search_detail_button);
+        listView = (ListView) mainFragment.findViewById(R.id.listView);
 
         searchButton.setOnClickListener(new SearchButtonClickListener());
         detailSearchButton.setOnClickListener(new DetailSearchButtonClickListener());
 
         return mainFragment;
     }
-
 
 
     @Override
@@ -98,6 +135,8 @@ public class searchFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement SearchListener");
         }
+
+        mCallback = (SearchListener) context;
     }
 
     @Override
@@ -163,8 +202,8 @@ public class searchFragment extends Fragment {
                     return;
                 }
             }
-            result = new ArrayList<>();
-            theSearcher searcher = new theSearcher(theSearchData,1,dataNum,result);
+
+            theSearcher searcher = new theSearcher(theSearchData,1,dataNum);
 
             if(searchType == 0)
             {
