@@ -3,13 +3,13 @@ package com.example.yuuna.finalprojectlibrary_searcher;
 import android.os.AsyncTask;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-public class theSearcher extends AsyncTask<Integer,Integer,ArrayList<HashMap<String,String>>> {
+public class theSearcher extends AsyncTask<Integer,Integer,ArrayList<LinkedHashMap<String,String>>> {
     private dataClass.searchData sData;
     private int searchPagenum;
     private int searchNum;
-    public ArrayList<HashMap<String,String>> searchResult;
+    public ArrayList<LinkedHashMap<String,String>> searchResult;
 
     public theSearcher(dataClass.searchData data, int pagenum , int num )
     {
@@ -20,7 +20,7 @@ public class theSearcher extends AsyncTask<Integer,Integer,ArrayList<HashMap<Str
     }
 
 
-    protected ArrayList<HashMap<String,String>> doInBackground(Integer... searchType){
+    protected ArrayList<LinkedHashMap<String,String>> doInBackground(Integer... searchType){
         XmlParser xml = new XmlParser();
         if(searchType[0] == 0)
         {
@@ -34,7 +34,7 @@ public class theSearcher extends AsyncTask<Integer,Integer,ArrayList<HashMap<Str
     }
 
     @Override
-    protected void onPostExecute(ArrayList<HashMap<String,String>> result)
+    protected void onPostExecute(ArrayList<LinkedHashMap<String,String>> result)
     {
         searchResult = result;
         searchFragment.isDone = true;

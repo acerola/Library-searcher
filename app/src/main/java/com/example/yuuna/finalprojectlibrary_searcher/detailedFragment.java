@@ -1,5 +1,6 @@
 package com.example.yuuna.finalprojectlibrary_searcher;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,27 +8,40 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link detailedFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link detailedFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class detailedFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    final static String ARG_POSITION = "position";
 
-    private OnFragmentInteractionListener mListener;
+    private LinkedHashMap<String, String> data;
+    private ArrayList<String[]> decodedData;
+
+    private View mainFragment;
+    private Button contentButton;
+    private Button bookmarkButton;
+    private ListView listView;
+    private SimpleAdapter adapter;
+
+    // TODO: Rename and change types of parameters
+    private int position;
+
+    detailedListener mCallback;
 
     public detailedFragment() {
         // Required empty public constructor
@@ -55,54 +69,78 @@ public class detailedFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            position = getArguments().getInt(ARG_POSITION);
         }
+
+        data = mCallback.onFragmentInteraction(position);
+        Set set = data.entrySet();
+        Iterator iterator = set.iterator();
+        ArrayList<String[]> result = new ArrayList<>();
+        while(iterator.hasNext()) {
+            String[] t = new String[2];
+            Map.Entry item = (Map.Entry) iterator.next();
+            t[0] = ((String)item.getKey());
+            t[1] = ((String) item.getValue());
+            result.add(t);
+        }
+        decodedData = result;
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detailed, container, false);
+        mainFragment =  inflater.inflate(R.layout.fragment_detailed, container, false);
+        contentButton = (Button)mainFragment.findViewById(R.id.contentButton);
+        bookmarkButton = (Button)mainFragment.findViewById(R.id.bookmarkButton);
+        listView = (ListView) mainFragment.findViewById(R.id.detail_list);
+
+        adapter= new SimpleAdapter(decodedData,getActivity().getApplicationContext());
+        listView.setAdapter(adapter);
+
+        contentButton.setOnClickListener(new detailedFragment.ContentButtonClickListener());
+        bookmarkButton.setOnClickListener(new detailedFragment.BookmarkButtonClickListener());
+
+        return mainFragment;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof detailedListener) {
+            mCallback = (detailedListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement detailedListener");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mCallback = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface detailedListener {
+        LinkedHashMap<String,String> onFragmentInteraction(int position);
+    }
+
+    class ContentButtonClickListener implements  View.OnClickListener
+    {
+        @Override
+        public void onClick(View V)
+        {
+
+        }
+    }
+
+    class BookmarkButtonClickListener implements  View.OnClickListener
+    {
+        @Override
+        public void onClick(View V)
+        {
+
+        }
     }
 }

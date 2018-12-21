@@ -7,23 +7,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public class XmlParser {
 
     private final static String basicSearch = "https://openapi.nanet.go.kr/nadl/rest/searchservice/basic?serviceKey=";
     private final static String detailSearch = "https://openapi.nanet.go.kr/nadl/rest/searchservice/detail?serviceKey=";
+    private final static String contentSearch = "https://openapi.nanet.go.kr/nadl/rest/detailinfoservice/toc?serviceKey=";
     private final static String serviceKey = "0xe7U7sjm%2BSyQJr75s4oEYs4Jqo9EvG4XaJY8%2FhXQXQUF42ooBRJ78js8rfIqBMt3YQX79fay6Z4ai3qVGuHLg%3D%3D";
 
-    public ArrayList<HashMap<String,String>> basicSearch(String all , String name , String writer , int pagenum , int num) {
+    public ArrayList<LinkedHashMap<String,String>> basicSearch(String all , String name , String writer , int pagenum , int num) {
         String requestUrl = basicSearch;
         requestUrl += serviceKey;
         requestUrl += "&pageno=" + pagenum;
         requestUrl += "&displaylines=" + num;
         requestUrl += "&search=";
 
-        ArrayList<HashMap<String,String>> result = null;
+        ArrayList<LinkedHashMap<String,String>> result = null;
 
         if (!all.matches("")) {
             requestUrl += "전체," + all;
@@ -58,7 +59,7 @@ public class XmlParser {
             parser.setInput(new InputStreamReader(is, "UTF-8"));
 
             int eventType = parser.getEventType();
-            HashMap<String,String> data = null;
+            LinkedHashMap<String,String> data = null;
             while(eventType != XmlPullParser.END_DOCUMENT){
                 switch (eventType){
                     case XmlPullParser.START_DOCUMENT:
@@ -80,7 +81,7 @@ public class XmlParser {
                         break;
                     case XmlPullParser.START_TAG:
                         if(parser.getName().equals("record")){
-                            data = new HashMap<>();
+                            data = new LinkedHashMap<>();
                         }
                         if(parser.getName().equals("name"))
                         {
@@ -111,7 +112,7 @@ public class XmlParser {
         return result;
     }
 
-    public ArrayList<HashMap<String,String>> detailSearch(String dbname , String all , String name , String writer ,int startYear, int endYear , int isThere ,  int pagenum , int num) {
+    public ArrayList<LinkedHashMap<String,String>> detailSearch(String dbname , String all , String name , String writer ,int startYear, int endYear , int isThere ,  int pagenum , int num) {
         String requestUrl = detailSearch;
         requestUrl += serviceKey;
         requestUrl += "&dbname=" + dbname;
@@ -119,7 +120,7 @@ public class XmlParser {
         requestUrl += "&displaylines=" + num;
         requestUrl += "&search=";
 
-        ArrayList<HashMap<String,String>> result = null;
+        ArrayList<LinkedHashMap<String,String>> result = null;
 
         if (all != null) {
             requestUrl += "전체," + all;
@@ -153,7 +154,7 @@ public class XmlParser {
             int eventType = parser.getEventType();
 
             while(eventType != XmlPullParser.END_DOCUMENT){
-                HashMap<String,String> data = null;
+                LinkedHashMap<String,String> data = null;
                 switch (eventType){
                     case XmlPullParser.START_DOCUMENT:
                         result = new ArrayList<>();
@@ -167,7 +168,7 @@ public class XmlParser {
                         break;
                     case XmlPullParser.START_TAG:
                         if(parser.getName().equals("record")){
-                            data = new HashMap<>();
+                            data = new LinkedHashMap<>();
                         }
                         break;
                     case XmlPullParser.TEXT:

@@ -19,12 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class searchFragment extends Fragment {
     final static String ARG_POSITION = "position";
     private static final int dataNum = 10;
-    public static ArrayList<HashMap<String,String>> Lastresult;
+    public static ArrayList<LinkedHashMap<String,String>> Lastresult;
 
     public static boolean isDone = false;
 
@@ -46,8 +46,6 @@ public class searchFragment extends Fragment {
     private Button searchButton;
     private Button detailSearchButton;
 
-    private SearchListener mListener;
-
     Handler handler;
     Thread thread;
 
@@ -67,7 +65,7 @@ public class searchFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        mCallback.onSelectedItem(position);
+                        mCallback.onSelectedItem(Lastresult , position);
                     }
                 });
 
@@ -76,7 +74,7 @@ public class searchFragment extends Fragment {
     }
 
     public interface SearchListener {
-        void onSelectedItem(int position);
+        void onSelectedItem(ArrayList<LinkedHashMap<String,String>> data , int position);
     }
 
 
@@ -130,19 +128,17 @@ public class searchFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof SearchListener) {
-            mListener = (SearchListener) context;
+            mCallback = (SearchListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement SearchListener");
         }
-
-        mCallback = (SearchListener) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mCallback = null;
     }
 
     class SearchButtonClickListener implements View.OnClickListener {

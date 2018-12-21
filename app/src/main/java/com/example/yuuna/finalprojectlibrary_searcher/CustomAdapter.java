@@ -14,20 +14,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashMap;
 
-public class CustomAdapter extends ArrayAdapter<HashMap<String,String>>{
+public class CustomAdapter extends ArrayAdapter<LinkedHashMap<String,String>>{
 
-    ArrayList<HashMap<String,String>> dataSet;
+    ArrayList<LinkedHashMap<String,String>> dataSet;
     Context mContext;
 
-    // View lookup cache
     private static class ViewHolder {
         TextView title;
         ImageView dbType;
     }
 
-    public CustomAdapter(ArrayList<HashMap<String,String>> data, Context context) {
+    public CustomAdapter(ArrayList<LinkedHashMap<String,String>> data, Context context) {
         super(context,R.layout.item,data);
         this.dataSet = data;
         this.mContext=context;
@@ -38,7 +38,7 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String,String>>{
 
         int position=(Integer) v.getTag();
         Object object= getItem(position);
-        HashMap<String,String> dataModel=(HashMap<String,String>)object;
+        LinkedHashMap<String,String> dataModel=(LinkedHashMap<String,String>)object;
 
         switch (v.getId())
         {
@@ -56,14 +56,14 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String,String>>{
         return dataSet.size();
     }
     @Override
-    public HashMap<String,String> getItem(int position) {
+    public LinkedHashMap<String,String> getItem(int position) {
         return dataSet.get(position);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        HashMap<String,String> data = getItem(position);
+        LinkedHashMap<String,String> data = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
