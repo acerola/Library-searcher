@@ -95,6 +95,14 @@ public class searchFragment extends Fragment {
 
     }
 
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+
+
+        }
+    }
+
     class checker implements Runnable {
         public void run(){
             int flag = 1;
@@ -122,6 +130,11 @@ public class searchFragment extends Fragment {
 
         searchButton.setOnClickListener(new SearchButtonClickListener());
         detailSearchButton.setOnClickListener(new DetailSearchButtonClickListener());
+
+        handler = new Handler();
+        thread = new Thread(new checker());
+        thread.setDaemon(true);
+        thread.start();
 
         return mainFragment;
     }
