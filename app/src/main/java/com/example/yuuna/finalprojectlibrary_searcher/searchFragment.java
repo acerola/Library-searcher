@@ -1,5 +1,6 @@
 package com.example.yuuna.finalprojectlibrary_searcher;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -231,8 +234,35 @@ public class searchFragment extends Fragment {
 
     class DialogButtonClickListener implements DialogInterface.OnClickListener
     {
+        String  dbtype;
+        String ischecked;
+
         @Override
         public void onClick(DialogInterface dialog, int button){
+            EditText editStart = (EditText) ((AlertDialog) dialog).findViewById(R.id.dialog_start);
+            EditText editEnd = (EditText) ((AlertDialog) dialog).findViewById(R.id.dialog_end);
+            CheckBox check = (CheckBox) ((AlertDialog) dialog).findViewById(R.id.dialog_checkbox);
+            Spinner spinner = (Spinner) ((AlertDialog) dialog).findViewById(R.id.dialog_spinner);
+
+            String start = editStart.getText().toString();
+            String end = editEnd.getText().toString();
+            dbtype = spinner.getSelectedItem().toString();
+
+            if(check.isChecked())
+            {
+                ischecked = "Y";
+            }
+            else
+            {
+                ischecked = "";
+            }
+            Activity activity = searchFragment.this.getActivity();
+            // TODO setting
+            ((TextView)(activity.findViewById(R.id.search_dataType))).setText(dbtype);
+            ((TextView)(activity.findViewById(R.id.search_start_year))).setText(start);
+            ((TextView)(activity.findViewById(R.id.search_end_year))).setText(end);
+            ((TextView)(activity.findViewById(R.id.search_isThere))).setText(ischecked);
+
 
         }
     }

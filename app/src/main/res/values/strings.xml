@@ -16,4 +16,9 @@
     <string name="content">목차보기</string>
     <string name="bookmark">북마크등록</string>
 
+    <!-- credit Activity text -->
+
+    <string name="credit_number">2012105095</string>
+    <string name="credit_name">진재경</string>
+
 </resources>

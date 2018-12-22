@@ -9,6 +9,7 @@
         android:layout_height="wrap_content" />
 
     <Spinner
+        android:id="@+id/dialog_spinner"
         android:entries="@array/dbtype"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></Spinner>
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/dialog_start"
             android:hint="시작년도"
             android:inputType="number"
             android:layout_weight="3"
@@ -35,6 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
         <EditText
+            android:id="@+id/dialog_end"
             android:hint="종료년도"
             android:inputType="number"
             android:layout_weight="3"
@@ -48,6 +51,7 @@
             android:layout_height="match_parent" />
 
         <CheckBox
+            android:id="@+id/dialog_checkbox"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="0dp"

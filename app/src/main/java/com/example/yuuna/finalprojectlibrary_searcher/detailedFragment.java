@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.support.design.widget.Snackbar;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -129,9 +130,10 @@ public class detailedFragment extends Fragment {
     class ContentButtonClickListener implements  View.OnClickListener
     {
         @Override
-        public void onClick(View V)
+        public void onClick(View v)
         {
-
+            Snackbar.make(v, "현재 목차보기 API가 작동하지 않으므로 작동할 수 없습니다.", Snackbar.LENGTH_LONG)
+                    .setAction("No action", null).show();
         }
     }
 
